@@ -67,7 +67,7 @@ color:#00ffff;
 
 <div class="container">
 
-<div class="header">KRYSTAL INFRA</div>
+<div class="header" id="clientName">AQI MONITOR</div>
 
 <div class="datetime" id="dt"></div>
 
@@ -109,6 +109,17 @@ color:#00ffff;
 
 <script>
 
+// GET URL PARAMETERS
+const params = new URLSearchParams(window.location.search);
+
+const client = params.get("client");
+const device = params.get("device") || "11";
+
+// CHANGE CLIENT NAME
+if(client){
+document.getElementById("clientName").innerText = client;
+}
+
 function updateTime(){
 
 const now = new Date()
@@ -122,7 +133,7 @@ async function fetchData(){
 
 try{
 
-const response = await fetch("https://aqi.rudraenterpriseshansi.workers.dev/?device=11")
+const response = await fetch("https://aqi.rudraenterpriseshansi.workers.dev/?device=" + device)
 
 const data = await response.json()
 
